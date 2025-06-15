@@ -1,39 +1,56 @@
 import os
 import pyvista as pv
+from pathlib import Path
 
-# Traverse all directories starting from the current directory
-for root, dirs, files in os.walk('.'):
+# Настройки рендеринга
+MESH_COLOR = 'silver'
+BACKGROUND_COLOR = 'white'
+WINDOW_SIZE = [800, 600]
+SCREENSHOT_SCALE = 2  # Масштаб изображения
+CAMERA_POSITION = [(1.5, 1.5, 1.5), (0, 0, 0), (0, 0, 1)]  # Камера под 3D-углом
+
+# Установка переменных окружения для off-screen рендеринга
+os.environ['PYVISTA_OFF_SCREEN'] = 'true'
+os.environ['PYVISTA_USE_PANEL'] = 'false'
+
+# Директория с STL-файлами
+ROOT_DIR = Path('.')
+OUTPUT_SUFFIX = '_preview.png'
+
+# Обход всех папок
+for root, dirs, files in os.walk(ROOT_DIR):
     for file in files:
         if file.lower().endswith('.stl'):
-            stl_path = os.path.join(root, file)
-            png_path = os.path.splitext(stl_path)[0] + '.png'
+            stl_path = Path(root) / file
+            png_path = stl_path.with_name(f"{stl_path.stem}_preview.png")
 
             try:
-                # Load the STL mesh
-                mesh = pv.read(stl_path)
+                # Загрузка модели
+                mesh = pv.read(str(stl_path))
 
-                # Create a plotter with off-screen rendering
-                plotter = pv.Plotter(off_screen=True)
+                # Создание Plotter
+                plotter = pv.Plotter(window_size=WINDOW_SIZE, off_screen=True)
 
-                # Add mesh with smooth shading and light blue color
-                plotter.add_mesh(mesh, color='lightblue', smooth_shading=True)
+                # Добавление модели с гладким шейдингом
+                plotter.add_mesh(
+                    mesh,
+                    color=MESH_COLOR,
+                    smooth_shading=True,
+                    show_edges=False
+                )
 
-                # Set isometric camera view to show 3 sides
-                plotter.view_isometric()
-
-                # Optional: Set background color
-                plotter.background_color = 'white'
-
-                # Adjust camera to ensure full object is visible
+                # Настройка камеры
+                plotter.camera_position = CAMERA_POSITION
                 plotter.reset_camera()
 
-                # Save the screenshot as PNG
-                plotter.screenshot(png_path)
+                # Установка фона
+                plotter.background_color = BACKGROUND_COLOR
 
-                # Close plotter to free memory
+                # Сохранение изображения
+                plotter.screenshot(str(png_path), scale=SCREENSHOT_SCALE)
                 plotter.close()
 
-                print(f"Generated: {png_path}")
+                print(f"✅ Сохранено: {png_path}")
 
             except Exception as e:
-                print(f"Failed to process {stl_path}: {e}")
+                print(f"❌ Ошибка: {stl_path} — {e}")
