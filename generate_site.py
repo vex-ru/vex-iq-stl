@@ -49,10 +49,12 @@ html = '''<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>VEX IQ STL файлы</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Бесплатные STL и STEP файлы для VEX IQ роботов. Качественные 3D модели для образовательной робототехники. Скачайте готовые детали для сборки и проектов прямо сейчас!">
+    <meta name="keywords" content="VEX IQ, STL файлы, 3D модели, образовательная робототехника, STEP файлы, детали для роботов, STEM-образование, скачивание STL, VEX IQ библиотека">
+    <title>VEX IQ STL файлы | Бесплатные 3D модели для робототехники</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"  rel="stylesheet">
+    <link href="cssjs/bootstrap.min.css"  rel="stylesheet">
     <style>
         body {
             scroll-behavior: smooth;
@@ -65,10 +67,10 @@ html = '''<!DOCTYPE html>
             color: white !important;
         }
         .dropdown-menu {
-            background-color: #1e3a8a !important; /* Чёрный фон */
+            background-color: #1e3a8a !important;
         }
         .dropdown-item {
-            color: white !important; /* Белый текст */
+            color: white !important;
         }
         .part-image {
             max-width: 250px;
@@ -82,6 +84,23 @@ html = '''<!DOCTYPE html>
             scroll-margin-top: 70px;
         }
     </style>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(102655870, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+    });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/102655870" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -124,7 +143,9 @@ html += '''            </ul>
 </nav>
 
 <!-- Main Content -->
-<div class="container mt-5">'''
+<div class="container mt-5">
+    <h1 class="mb-4">📚 Библиотека 3D моделей для VEX IQ</h1>
+    <p class="lead">Бесплатные STL и STEP файлы для робототехнических проектов, образовательных сборок и STEM-программ.</p>'''
 
 # Генерация контента
 for cat in category_data:
@@ -216,7 +237,7 @@ html += '''
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+    <script src="cssjs/bootstrap.bundle.min.js"></script> 
 </body>
 </html>
 '''
