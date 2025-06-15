@@ -1,1 +1,6 @@
 Другие/228-8893-000.STEP filter=lfs diff=lfs merge=lfs -text
+ПО/SnapCAD-Installer-20170620.exe filter=lfs diff=lfs merge=lfs -text
+ПО/VEX_Assembler_WIN32_20130830.zip filter=lfs diff=lfs merge=lfs -text
+ПО/VEX_Assembler_WIN64_20130830.zip filter=lfs diff=lfs merge=lfs -text
+ПО/ldcad/LDCadVEX-1-5-Win-32.exe filter=lfs diff=lfs merge=lfs -text
+ПО/ldcad/snapcadunoff.zip filter=lfs diff=lfs merge=lfs -text
