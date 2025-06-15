@@ -83,6 +83,29 @@ html = '''<!DOCTYPE html>
         .category, .subcategory {
             scroll-margin-top: 70px;
         }
+        /* Стили для полноэкранного изображения */
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+        .fullscreen-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            cursor: zoom-out;
+        }
+
+        
     </style>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
@@ -90,7 +113,7 @@ html = '''<!DOCTYPE html>
     m[i].l=1*new Date();
     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js",    "ym");
 
     ym(102655870, "init", {
             clickmap:true,
@@ -99,7 +122,7 @@ html = '''<!DOCTYPE html>
             webvisor:true
     });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/102655870" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/102655870"    style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
 </head>
 <body>
@@ -185,7 +208,6 @@ for cat in category_data:
             for base in common_bases:
                 step_rel = os.path.join(os.path.relpath(root, '.'), step_files[base]).replace('\\', '/')
                 stl_rel = os.path.join(os.path.relpath(root, '.'), stl_files[base]).replace('\\', '/')
-
                 image_rel = "https://via.placeholder.com/250x250?text=Preview"
                 for ext in [".png", ".jpg"]:
                     image_filename = f"{base}_preview{ext}"
@@ -213,7 +235,7 @@ for cat in category_data:
 <div class="card mb-3">
     <div class="row g-0">
         <div class="col-md-3 d-flex align-items-center justify-content-center">
-            <img src="{part["image"]}" class="part-image img-fluid" alt="Изображение детали {part["name"]}">
+            <img src="{part["image"]}" class="part-image img-fluid" alt="Изображение детали {part["name"]}" onclick="showFullscreen(\'{part["image"]}\')">
         </div>
         <div class="col-md-9">
             <div class="card-body">
@@ -232,12 +254,30 @@ for cat in category_data:
 
     html += '</div> <!-- category -->\n'
 
-# Конец HTML-документа 
+# Конец HTML-документа    
 html += '''
     </div>
 
+    <!-- Полноэкранный слой -->
+    <div class="fullscreen-overlay" onclick="hideFullscreen()">
+        <img class="fullscreen-image" src="" alt="Полноэкранный просмотр">
+    </div>
+
     <!-- Bootstrap JS -->
-    <script src="cssjs/bootstrap.bundle.min.js"></script> 
+    <script src="cssjs/bootstrap.bundle.min.js"></script>
+    <script>
+        let fullscreenImage = document.querySelector('.fullscreen-image');
+        let overlay = document.querySelector('.fullscreen-overlay');
+
+        function showFullscreen(src) {
+            fullscreenImage.src = src;
+            overlay.style.display = 'block';
+        }
+
+        function hideFullscreen() {
+            overlay.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
 '''
